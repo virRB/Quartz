@@ -2,6 +2,7 @@ from pathlib import Path
 import shutil
 import sys
 import subprocess
+import importlib.util
 
 BASE = Path.cwd()
 MAIN = Path(__file__).resolve().parent
@@ -23,6 +24,11 @@ def build_project(name):
 
     print(f"Built Quartz project: {name}")
 
+def load_module(path):
+    spec = importlib.util.spec_from_file_location("Quartz", str(path))
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 def run_project():
     cwd = Path.cwd()
@@ -58,7 +64,15 @@ def main():
         print(Qversion)
     elif cmd == "help":
         print("Help:\nqz build <projectname> -> creates a new Quartz project with that name\nqz run -> runs the project in the current directory\nqz version -> displays your current installed version of Quartz\nqz help -> displays help text for Quartz")
-
+    elif cmd == "dbgr":
+        c_dir = Path.cwd()
+        parser = c_dir / "Quartz.py"
+        if parser.exists():
+            quartz = load_module(parser)
+            quartz.debugger()
+            quartz.run()
+        else:
+            print("ERROR: cannot find parser file")
     else:
         print(f"ERROR: Unknown command -> {cmd}")
 
