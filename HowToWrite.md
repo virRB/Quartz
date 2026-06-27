@@ -99,3 +99,10 @@ Example program (this takes input from the user, and shows its descendant and as
 ```Quartz
 @addThree:%+++ #5|~+|^3|~+| ?2:$addThree|,,,
 ```
+## Imports
+If you want to import a module (modules are other *.qrtz files in the folder, containing functions)
+You can use "QPort"
+Example:
+```Quartz
+QPort(stuff)|$stuff.sayHi
+```
