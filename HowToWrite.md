@@ -20,9 +20,9 @@
 ^7
 ```
 ## Movement
-"~+" can be used to move one slot forward
-"~-" can be used to move one slot backward
-"~>" is used to loop through every slot and run a command on them until it reaches a given number
+`~+` can be used to move one slot forward
+`~-` can be used to move one slot backward
+`~>` is used to loop through every slot and run a command on them until it reaches a given number
 Example:
 ```Quartz
 ~>5:+
