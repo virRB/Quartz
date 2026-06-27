@@ -7,7 +7,7 @@ import importlib.util
 BASE = Path.cwd()
 MAIN = Path(__file__).resolve().parent
 TEMPLATE_DIR = MAIN / "template"
-Qversion = "Quartz v1.0"
+Qversion = "Quartz v1.2"
 
 def build_project(name):
     target = BASE / name
