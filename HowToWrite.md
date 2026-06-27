@@ -6,7 +6,7 @@
 +|-|etc...
 ```
 - There are multiple different operators you can use with these slots
-- Slots go in order 0 - 5
+- Slots go in order 0 - 4
 - You start at slot 0
 ## Operators
 "+" will increase the value of the current slot by 1
