@@ -1,6 +1,6 @@
 # Writing Your First Program in Quartz
 
-Quartz is an esoteric programming language built around **50 memory slots**. Each slot can store a value, and your program moves between these slots to perform operations.
+Quartz is an esoteric programming language built around **50 memory slots**. Each slot can store either an **integer** or a **string**, and your program moves between these slots to perform operations.
 
 Commands are separated using the `|` character.
 
@@ -17,6 +17,34 @@ Example:
 * Quartz has **50 slots**, numbered **0–49**.
 * Your program starts on **slot 0**.
 * Most commands affect the **current slot**.
+
+---
+
+# Data Types
+
+Quartz supports two data types.
+
+## Integers
+
+Integers are written normally.
+
+Example:
+
+```Quartz
+42
+```
+
+## Strings
+
+Strings begin with `s` instead of using quotation marks.
+
+Example:
+
+```Quartz
+sHello
+sQuartz
+sHello, World!
+```
 
 ---
 
@@ -58,10 +86,46 @@ This is equivalent to:
 
 Set the current slot's value to `x`.
 
-Example:
+`x` may be either an integer or a string.
+
+Examples:
 
 ```Quartz
 ^7
+```
+
+```Quartz
+^sHello
+```
+
+### `++`
+
+Concatenate strings.
+
+If the current slot contains a string, `++` lets you add text before or after it.
+
+Append text to the end:
+
+```Quartz
+++sVir
+```
+
+If the current slot contains `Hello`, it becomes:
+
+```text
+HelloVir
+```
+
+Prepend text to the beginning:
+
+```Quartz
+sBye++
+```
+
+If the current slot contains `Hello`, it becomes:
+
+```text
+ByeHello
 ```
 
 ---
@@ -86,15 +150,19 @@ Move to the previous slot.
 
 ### `~>x:command`
 
-Loop through slots, running a command on each one until a slot with the value `x` is found.
+Loop through slots, running a command on each one until a slot containing `x` is found.
 
-Example:
+`x` may be either an integer or a string.
+
+Examples:
 
 ```Quartz
 ~>5:+
 ```
 
-This adds 1 to every slot visited until a slot containing `5` is reached.
+```Quartz
+~>sHello:%++--
+```
 
 ---
 
@@ -102,12 +170,18 @@ This adds 1 to every slot visited until a slot containing `5` is reached.
 
 ### `#x`
 
-Store the current slot's value into memory variable `x`.
+Store `x` in the current slot.
 
-Example:
+`x` may be either an integer or a string.
+
+Examples:
 
 ```Quartz
 #5
+```
+
+```Quartz
+#sHello
 ```
 
 ---
@@ -133,6 +207,14 @@ Subtract the user's input from the current slot.
 ```Quartz
 &*-
 ```
+
+Read a string from the user and replace the current slot.
+
+```Quartz
+s&*
+```
+
+> **Note:** `s&*+` and `s&*-` are currently **not supported**.
 
 ## Output
 
@@ -180,19 +262,23 @@ Pauses for 3 seconds.
 
 Use `?` to check whether the current slot equals a value.
 
+`value` may be either an integer or a string.
+
 Syntax:
 
 ```Quartz
 ?value:command
 ```
 
-Example:
+Examples:
 
 ```Quartz
 ?5:%++
 ```
 
-If the current slot contains `5`, it increases it by `2`.
+```Quartz
+?sHello:,,,
+```
 
 ---
 
@@ -274,9 +360,9 @@ $stuff.sayHi
 # Example Program
 
 ```Quartz
-@addThree:%+++
-#5|~+|^3|~+|?2:$addThree|,,,
+#sHello
+++s, World!
+?sHello, World!:,,,
 ```
 
-This program creates a function, moves between slots, performs a conditional check, and prints the final value.
-
+This program stores the string `Hello`, appends `, World!` to it, checks if the resulting string matches `Hello, World!`, and prints it.
