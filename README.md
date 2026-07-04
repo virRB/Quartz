@@ -4,7 +4,8 @@
 - Quartz is a minimalistic estoeric language, desgined around symbolic instructions and memory management
 
 ## How to start?
-- First, download the QuartzInstaller provided
+- First, download the QuartzInstallation provided
+- Then, extract the zip archive into a folder
 - Then, from that folder, without taking it out from the folder, run `installer.py`
 - After that, restart your terminal, and you should be able to use **qz**
 - To create a project, run
