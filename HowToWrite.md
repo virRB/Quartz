@@ -1,108 +1,282 @@
-# Writing your first program in Quartz!
-- In quartz, you are given 5 slots. these are your slots to store values in.
-- all commands in quartz must be seperated by "|"
-- for example
+# Writing Your First Program in Quartz
+
+Quartz is an esoteric programming language built around **50 memory slots**. Each slot can store a value, and your program moves between these slots to perform operations.
+
+Commands are separated using the `|` character.
+
+Example:
+
 ```Quartz
-+|-|etc...
++|-|^7|,,,
 ```
-- There are multiple different operators you can use with these slots
-- Slots go in order 0 - 4
-- You start at slot 0
-## Operators
-"+" will increase the value of the current slot by 1
-"-" will decrease the value of the current slot by 1
-"%" can be used to repeat operations in one command. for example
+
+---
+
+# Memory Slots
+
+* Quartz has **50 slots**, numbered **0–49**.
+* Your program starts on **slot 0**.
+* Most commands affect the **current slot**.
+
+---
+
+# Operators
+
+### `+`
+
+Increase the current slot by **1**.
+
+```Quartz
++
+```
+
+### `-`
+
+Decrease the current slot by **1**.
+
+```Quartz
+-
+```
+
+### `%`
+
+Repeat several operations in a single command.
+
+Example:
+
 ```Quartz
 %+++--++
 ```
-"^x" can be used to change the value of the current slot, 1 -> x. example:
+
+This is equivalent to:
+
+```Quartz
++++--++
+```
+
+### `^x`
+
+Set the current slot's value to `x`.
+
+Example:
+
 ```Quartz
 ^7
 ```
-## Movement
-`~+` can be used to move one slot forward
-`~-` can be used to move one slot backward
-`~>` is used to loop through every slot and run a command on them until it reaches a given number
+
+---
+
+# Movement
+
+### `~+`
+
+Move to the next slot.
+
+```Quartz
+~+
+```
+
+### `~-`
+
+Move to the previous slot.
+
+```Quartz
+~-
+```
+
+### `~>x:command`
+
+Loop through slots, running a command on each one until a slot with the value `x` is found.
+
 Example:
+
 ```Quartz
 ~>5:+
 ```
-- That adds 1 to ever slot it loops through until it finds a slot of value 5
-## Memory
-"#x" can be used to set the value of the current slot
-example:
+
+This adds 1 to every slot visited until a slot containing `5` is reached.
+
+---
+
+# Memory
+
+### `#x`
+
+Store the current slot's value into memory variable `x`.
+
+Example:
+
 ```Quartz
 #5
 ```
-## Input and Output
-To take input from the user (only integers) you can use:
-"&*" to take input and ovveride the slot
-"&*+" to add the inputted value to the value of the slot
-"&*-" to subtract the inputted value to the value of the slot
-to print the value of the current slot you can do:
+
+---
+
+# Input & Output
+
+## Input
+
+Read an integer from the user and replace the current slot.
+
+```Quartz
+&*
+```
+
+Add the user's input to the current slot.
+
+```Quartz
+&*+
+```
+
+Subtract the user's input from the current slot.
+
+```Quartz
+&*-
+```
+
+## Output
+
+Print the current slot.
+
 ```Quartz
 ,,,
 ```
-to print the value of any slot, 0 - 4 you can do:
+
+Print any slot.
+
 ```Quartz
 ,,,4,,,
 ```
-and to print the sum of any 2 slots
+
+Print the sum of two slots.
+
 ```Quartz
 ,,,3:4,,,,
 ```
-## Time
-You can pause for an x amount of seconds using:
+
+---
+
+# Time
+
+Pause the program for a number of seconds.
+
+Syntax:
+
 ```Quartz
 ...x...
 ```
+
 Example:
+
 ```Quartz
 ...3...
 ```
-## Conditionals
-For conditionals, you can use "?"
-This detects if the current slot is equal to a given value, if so it runs a command
+
+Pauses for 3 seconds.
+
+---
+
+# Conditionals
+
+Use `?` to check whether the current slot equals a value.
+
+Syntax:
+
+```Quartz
+?value:command
+```
+
 Example:
+
 ```Quartz
 ?5:%++
 ```
-## Functions
-Quartz has the ability to create functions, which are basically reusable chunks of code
-To create a function, you can use the keyword "@"
+
+If the current slot contains `5`, it increases it by `2`.
+
+---
+
+# Functions
+
+Functions let you reuse code.
+
+## Creating a function
+
+Use `@`.
+
 ```Quartz
 @functionName:command
 ```
-for example:
+
+Example:
+
 ```Quartz
 @addThree:%+++
 ```
-To add multiple commands to one function, you can seperate them using "/"
-Example:
+
+## Multiple commands
+
+Separate commands with `/`.
+
 ```Quartz
 @addTwoToNext:~+/%++
 ```
-To call a function, you can use "$"
-Example:
+
+## Calling a function
+
+Use `$`.
+
 ```Quartz
 $addThree
 ```
-## Comments
-Comments can be used to organise and make your code cleaner - or, as clean as this language can get.
-The comment syntax is simple, "!"
+
+---
+
+# Comments
+
+Comments begin with `!`.
+
 Example:
+
 ```Quartz
-! This is a comment
+! This is a comment.
 ```
 
-Example program (this takes input from the user, and shows its descendant and ascendant):
+---
+
+# Imports
+
+* Import another `.qrtz` file using `QPort`.
+
+Syntax:
+
 ```Quartz
-@addThree:%+++ #5|~+|^3|~+| ?2:$addThree|,,,
+QPort<stuff.qrtz>
 ```
-## Imports
-If you want to import a module (modules are other *.qrtz files in the folder, containing functions)
-You can use "QPort"
+
+* Call imported functions using the module name followed by a dot.
+
 Example:
+
 ```Quartz
-QPort(stuff)|$stuff.sayHi
+$stuff.sayHi
 ```
+
+Complete example:
+
+```Quartz
+QPort<stuff.qrtz>
+$stuff.sayHi
+```
+
+---
+
+# Example Program
+
+```Quartz
+@addThree:%+++
+#5|~+|^3|~+|?2:$addThree|,,,
+```
+
+This program creates a function, moves between slots, performs a conditional check, and prints the final value.
+
