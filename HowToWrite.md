@@ -84,19 +84,15 @@ This is equivalent to:
 
 ### `^x`
 
-Set the current slot's value to `x`.
+Replace the current slot with a **random integer** between **1** and `x` (inclusive).
 
-`x` may be either an integer or a string.
-
-Examples:
+Example:
 
 ```Quartz
-^7
+^10
 ```
 
-```Quartz
-^sHello
-```
+This sets the current slot to a random number from **1** to **10**.
 
 ### `++`
 
@@ -224,18 +220,6 @@ Print the current slot.
 ,,,
 ```
 
-Print any slot.
-
-```Quartz
-,,,4,,,
-```
-
-Print the sum of two slots.
-
-```Quartz
-,,,3:4,,,,
-```
-
 ---
 
 # Time
@@ -332,7 +316,7 @@ Example:
 
 # Imports
 
-* Import another `.qrtz` file using `QPort`.
+Import another `.qrtz` file using `QPort`.
 
 Syntax:
 
@@ -340,7 +324,7 @@ Syntax:
 QPort<stuff.qrtz>
 ```
 
-* Call imported functions using the module name followed by a dot.
+Call imported functions using the module name followed by a dot.
 
 Example:
 
